@@ -66,3 +66,23 @@ CREATE TABLE Prestamos (
     FOREIGN KEY (ReservaID) REFERENCES Reservas(ID),
     FOREIGN KEY (AdministrativoDNI) REFERENCES Administrativos(DNI)
 );
+
+-----
+
+STORED PROCEDURES
+
+DELIMITER //
+CREATE PROCEDURE InsertarEnAutores(IN Nombre VARCHAR(50), IN Apellido VARCHAR(50), IN Nacionalidad VARCHAR(50))
+BEGIN
+    INSERT INTO Autores (Nombre, Apellido, Nacionalidad)
+    VALUES (Nombre, Apellido, Nacionalidad);
+END //
+DELIMITER ;
+
+
+DELIMITER //
+CREATE PROCEDURE EliminarAutor(IN ID INT)
+BEGIN
+    DELETE FROM Autores WHERE ID = ID;
+END //
+DELIMITER 
