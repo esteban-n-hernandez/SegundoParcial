@@ -10,8 +10,10 @@ public interface ClienteDAO {
 
     public Cliente getCliente(String dni);
 
+    public void insertCliente(Cliente cliente);
+
     public void updateCliente(Cliente cliente);
 
-    public void deleteCliente(Cliente cliente);
+    public void deleteCliente(String dni);
 
 }

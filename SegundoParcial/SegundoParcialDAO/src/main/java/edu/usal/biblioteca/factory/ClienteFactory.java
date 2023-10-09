@@ -1,13 +1,13 @@
 package edu.usal.biblioteca.factory;
 
-import edu.usal.biblioteca.dao.interfaz.PersonaDAO;
+import edu.usal.biblioteca.dao.impl.ClienteDAOImpl;
+import edu.usal.biblioteca.dao.interfaz.ClienteDAO;
 
 public class ClienteFactory {
 
-
-    public static PersonaDAO getPersonaDAO(String implementacion) {
+    public static ClienteDAO getClienteDAO(String implementacion) {
         if (implementacion.equalsIgnoreCase("DB")) {
-            return new PersonaDAO() {
+            return new ClienteDAOImpl() {
             };
         }
         throw new RuntimeException("Imple no encontrada.");

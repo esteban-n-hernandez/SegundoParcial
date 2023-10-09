@@ -10,7 +10,9 @@ public interface AdministrativoDAO {
 
     public Administrativo getAdministrativo(String dni);
 
+    public void insertAdministrativo(Administrativo administrativo);
+
     public void updateAdministrativo(Administrativo administrativo);
 
-    public void deleteAdministrativo(Administrativo administrativo);
+    public void deleteAdministrativo(String dni);
 }
