@@ -86,3 +86,20 @@ BEGIN
     DELETE FROM Autores WHERE ID = ID;
 END //
 DELIMITER 
+
+DELIMITER //
+CREATE PROCEDURE InsertarEnReservas(IN ClienteDNI VARCHAR(8), IN LibroISBN VARCHAR(13), IN FechaDeReserva DATE, IN FechaDeDevolucion DATE)
+BEGIN
+    INSERT INTO Reservas (ClienteDNI, LibroISBN, FechaDeReserva, FechaDeDevolucion)
+    VALUES (ClienteDNI, LibroISBN, FechaDeReserva, FechaDeDevolucion);
+END //
+DELIMITER ;
+
+DELIMITER //
+CREATE PROCEDURE ActualizarReservas(IN ID INT, IN ClienteDNI VARCHAR(8), IN LibroISBN VARCHAR(13), IN FechaDeReserva DATE, IN FechaDeDevolucion DATE)
+BEGIN
+    UPDATE Reservas 
+    SET ClienteDNI = ClienteDNI, LibroISBN = LibroISBN, FechaDeReserva = FechaDeReserva, FechaDeDevolucion = FechaDeDevolucion
+    WHERE ID = ID;
+END //
+DELIMITER ;
