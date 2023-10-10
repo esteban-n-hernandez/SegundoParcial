@@ -67,6 +67,13 @@ CREATE TABLE Prestamos (
     FOREIGN KEY (AdministrativoDNI) REFERENCES Administrativos(DNI)
 );
 
+ALTER TABLE libros
+ADD EditorialID int;
+
+ALTER TABLE libros
+ADD CONSTRAINT FK_Libro_Editorial
+FOREIGN KEY (EditorialID) REFERENCES editoriales(ID);
+
 -----
 
 STORED PROCEDURES
@@ -101,5 +108,13 @@ BEGIN
     UPDATE Reservas 
     SET ClienteDNI = ClienteDNI, LibroISBN = LibroISBN, FechaDeReserva = FechaDeReserva, FechaDeDevolucion = FechaDeDevolucion
     WHERE ID = ID;
+END //
+DELIMITER ;
+
+DELIMITER //
+CREATE PROCEDURE InsertarEnEditoriales(IN NombreEditorial VARCHAR(50), IN Direccion VARCHAR(100), IN PaginaWeb VARCHAR(100), IN Email VARCHAR(50), IN NumeroDeContacto VARCHAR(15))
+BEGIN
+    INSERT INTO Editoriales (NombreEditorial, Direccion, PaginaWeb, Email, NumeroDeContacto)
+    VALUES (NombreEditorial, Direccion, PaginaWeb, Email, NumeroDeContacto);
 END //
 DELIMITER ;
