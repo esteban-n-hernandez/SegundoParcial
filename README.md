@@ -75,8 +75,20 @@ ADD CONSTRAINT FK_Libro_Editorial
 FOREIGN KEY (EditorialID) REFERENCES editoriales(ID);
 
 
+CREATE TABLE Ejemplares (
+    ID int PRIMARY KEY,
+    LibroISBN varchar(13),
+    EditorialID int,
+    Estado varchar(10),
+    FOREIGN KEY (LibroISBN) REFERENCES Libros(ISBN),
+    FOREIGN KEY (EditorialID) REFERENCES Editoriales(ID)
+);
+
+
+
 ALTER TABLE Ejemplares
 MODIFY COLUMN ID int NOT NULL AUTO_INCREMENT;
+
 -----
 
 STORED PROCEDURES
@@ -119,5 +131,32 @@ CREATE PROCEDURE InsertarEnEditoriales(IN NombreEditorial VARCHAR(50), IN Direcc
 BEGIN
     INSERT INTO Editoriales (NombreEditorial, Direccion, PaginaWeb, Email, NumeroDeContacto)
     VALUES (NombreEditorial, Direccion, PaginaWeb, Email, NumeroDeContacto);
+END //
+DELIMITER ;
+
+
+
+DELIMITER //
+CREATE PROCEDURE InsertarLibroYejemplares(
+    IN ISBN_param VARCHAR(13), 
+    IN Titulo_param VARCHAR(100), 
+    IN CantidadDePaginas_param INT, 
+    IN Genero_param VARCHAR(30), 
+    IN Edicion_param VARCHAR(30), 
+    IN AutorID_param INT, 
+    IN EditorialID_param INT, 
+    IN CantidadEjemplares_param INT)
+BEGIN
+    -- Insertar el nuevo libro en la tabla Libros
+    INSERT INTO Libros(ISBN, Titulo, CantidadDePaginas, Genero, Edicion, AutorID, EditorialID)
+    VALUES (ISBN_param, Titulo_param, CantidadDePaginas_param, Genero_param, Edicion_param, AutorID_param, EditorialID_param);
+
+    -- Insertar los ejemplares en la tabla Ejemplares
+    SET @i = 0;
+    WHILE @i < CantidadEjemplares_param DO
+        INSERT INTO Ejemplares(LibroISBN, EditorialID, Estado)
+        VALUES (ISBN_param, EditorialID_param, 'disponible');
+        SET @i = @i + 1;
+    END WHILE;
 END //
 DELIMITER ;
